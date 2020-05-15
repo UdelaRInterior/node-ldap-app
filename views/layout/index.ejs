@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= siteName %> | <%= pageTitle %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=block" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="jumbotron d-none d-sm-block" id="myHeader">
+            <img src="http://udelar.edu.uy/portal/wp-content/uploads/sites/48/2018/11/cropped-logo_udelar.png">
+            <h2>Telefonos Udelar interior</h2>
+        </div>
+    </header>
+    <!-- ### -->
+
+    <!-- MAIN CONTENT -->
+    <%- include(`../pages/${template}`) %> <%- include('./partials/scripts') %>
+    <!-- ### -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="container text-center">
+            2020 - Sitio desarrollado por el equipo transversal del
+            <i class="fas fa-external-link-alt"></i>
+            <a href="https://interior.edu.uy"> Interior</a> -
+            <i class="fab fa-github"></i>
+            <a href="https://github.com/UdelaRInterior"> GitHub</a>
+        </div>
+    </div>
+    <!-- ### -->
+
+</body>
+
+</html>

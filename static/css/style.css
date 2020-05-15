@@ -1,0 +1,17 @@
+body{
+    background-color: #004A82;
+    color: white;
+}
+
+#myHeader{
+    background-color: #004A82;
+    color: white;
+    text-align: center;
+    margin: auto;
+}
+
+th{
+    cursor: pointer;
+}
+
+

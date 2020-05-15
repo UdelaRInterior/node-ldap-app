@@ -1,0 +1,20 @@
+<div class="container">
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th>Sede</th>
+                <th>Secci&oacuten</th>
+                <th>Interno</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% phoneNumbers.forEach(function(element) {%>
+            <tr>
+                <td><%=element.sede%></td>
+                <td><%=element.seccion%></td>
+                <td><%=element.interno%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
