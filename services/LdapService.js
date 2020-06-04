@@ -72,76 +72,43 @@ class LdapService {
 
     async getXMLPhones() {
 
-        return new Promise((resolve, reject) => {
+        var data = await this.getAllPhoneNumbers();
 
-            var doc = xmlBuilder.create('root', { version: '1.0', encoding: 'UTF-8' },
-                { pubID: null, sysID: null },
-                {
-                    allowSurrogateChars: false, skipNullAttributes: false,
-                    headless: false, ignoreDecorators: false, stringify: {}
-                });
-
-            var xmlSedes = doc.ele('root_group');
-            var contactos = doc.ele('root_contact');
-            var sedesString = '';
-            var conString = '';
-
-            var client = ldap.createClient({ url: this.host + ':' + this.port });
-
-            var sedes = 0;
-            var sedesTerminadas = 0;
-
-            client.bind(this.bindDn, this.passwd, (err) => {
-
-                if (!err) {
-
-                    client.search(this.basedn, { filter: '(objectclass=groupOfNames)', scope: 'one' },
-                        (err, res) => {
-
-                            res.on('searchEntry', (entry) => {
-                                sedes += 1;
-
-                                var sede = entry.object.description;
-                                xmlSedes.ele('group')
-                                    .att('display_name', sede)
-                                    .att('ring', '')
-                                    .up();
-
-                                client.search(entry.object.dn, { filter: '(objectclass=inetOrgPerson)', scope: 'sub' },
-                                    (errTel, resTel) => {
-
-
-
-                                        resTel.on('searchEntry', (entryTel) => {
-                                            contactos.ele('contact')
-                                                .att('display_name', entryTel.object.givenName)
-                                                .att('office_number', entryTel.object.telephoneNumber)
-                                                .att('line', '0')
-                                                .att('group_id_name', sede)
-                                                .up();
-                                        });
-
-                                        resTel.on('end', (result) => {
-
-                                            sedesTerminadas += 1;
-
-                                            if (sedes == sedesTerminadas) {
-
-                                                sedesString = '<?xml version="1.0" encoding="UTF-8"?>\n';
-                                                sedesString = sedesString + xmlSedes.toString({ pretty: true });
-                                                conString = contactos.toString({ pretty: true });
-                                                resolve(sedesString + conString);
-                                            }
-                                        });
-                                    });
-                            });
-                        });
-
-                } else {
-                    reject("Can't establish connection with Ldap server");
-                }
+        var doc = xmlBuilder.create('root', { version: '1.0', encoding: 'UTF-8' },
+            { pubID: null, sysID: null },
+            {
+                allowSurrogateChars: false, skipNullAttributes: false,
+                headless: false, ignoreDecorators: false, stringify: {}
             });
+
+        var xmlSedes = doc.ele('root_group');
+        var contactos = doc.ele('root_contact');
+        var sedesString = '';
+        var conString = '';
+
+        data.sedes.forEach(element => {
+
+            xmlSedes.ele('group')
+                .att('display_name', element.nombre)
+                .att('ring', '')
+                .up();
         });
+
+        data.internos.forEach(item => {
+
+            contactos.ele('contact')
+                .att('display_name', item.seccion)
+                .att('office_number', item.interno)
+                .att('line', '0')
+                .att('group_id_name', item.sede)
+                .up();
+        });
+
+        sedesString = '<?xml version="1.0" encoding="UTF-8"?>\n';
+        sedesString = sedesString + xmlSedes.toString({ pretty: true });
+        conString = contactos.toString({ pretty: true });
+
+        return (sedesString + conString);
     }
 
     async getSedeNumbers(sedeName) {
