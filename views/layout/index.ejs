@@ -14,12 +14,46 @@
 
 <body>
     <!-- HEADER -->
+    <!--
     <header>
         <div class="jumbotron d-none d-sm-block" id="myHeader">
-            <img src="http://udelar.edu.uy/portal/wp-content/uploads/sites/48/2018/11/cropped-logo_udelar.png">
-            <h2>Telefonos Udelar interior</h2>
+            <img src="https://www.interior.edu.uy/assets/cropped-logo_udelar_blanco.png">
+            <h2>Teléfonos de la Udelar en el Interior</h2>
         </div>
     </header>
+-->
+    <div>
+        <nav class="navbar navbar-expand-sm navbar-custom justify-content-between border-bottom border-dark">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <img src="https://www.interior.edu.uy/assets/cropped-logo_udelar_blanco.png"
+                        class="d-inline-block align-top" alt="udelar logo">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Sedes
+                        </a>
+                        <div class="dropdown-menu">
+                            <% sedes.forEach(function(element) {%>
+                            <tr>
+                                <a class="dropdown-item" href='/<%=element.nombre%>'><%=element.nombre%></a>
+                            </tr>
+                            <%})%>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        <div class="main-title">
+            <h3>Teléfonos de la Udelar en el Interior</h3>
+        </div>
+
+    </div>
     <!-- ### -->
 
     <!-- MAIN CONTENT -->

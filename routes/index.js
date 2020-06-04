@@ -9,11 +9,21 @@ module.exports = (params) => {
 
     router.get('/', async (request, response, next) => {
         try {
-            const phoneNumbers = await ldapService.getAllPhoneNumbers();
+
+            var data = {
+                sedes: [],
+                internos: [],
+            }
+
+            data = await ldapService.getAllPhoneNumbers();
+
+            const sedes = data.sedes;
+            const phoneNumbers = data.internos;
 
             return response.render('layout', {
                 pageTitle: 'Sedes',
                 template: 'index',
+                sedes,
                 phoneNumbers,
             });
         } catch (err) {
@@ -25,11 +35,21 @@ module.exports = (params) => {
 
     router.get('/:sede', async (request, response, next) => {
         try {
-            const phoneNumbers = await ldapService.getSedeNumbers(request.params.sede);
+
+            var data = {
+                sedes: [],
+                internos: [],
+            }
+
+            data = await ldapService.getSedeNumbers(request.params.sede);
+
+            const sedes = data.sedes;
+            const phoneNumbers = data.internos;
 
             return response.render('layout', {
                 pageTitle: 'Sede ' + request.params.sede,
                 template: 'index',
+                sedes,
                 phoneNumbers,
             });
         } catch (err) {
