@@ -3,7 +3,9 @@
         <thead>
             <tr>
                 <th>Sede</th>
+                <th>Sitio web</th>                
                 <th>Secci&oacuten</th>
+                <th>Caracterst&iacuteca</th>
                 <th>Interno</th>
             </tr>
         </thead>
@@ -11,7 +13,9 @@
             <% phoneNumbers.forEach(function(element) {%>
             <tr>
                 <td><%=element.sede%></td>
+                <td><a href="<%=element.webpage%>"><%=element.webpage%></a></td>
                 <td><%=element.seccion%></td>
+                <td><%=element.caracteristica%></td>
                 <td><%=element.interno%></td>
             </tr>
             <%})%>

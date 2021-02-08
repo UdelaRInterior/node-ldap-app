@@ -26,6 +26,10 @@ class LdapService {
             var sedes = 0;
             var sedesTerminadas = 0;
 
+            var modifyInternos = false
+            var webpage
+            var caracteristica
+
             client.bind(this.bindDn, this.passwd, (err) => {
 
                 if (!err) {
@@ -44,16 +48,35 @@ class LdapService {
                                     (errTel, resTel) => {
 
                                         resTel.on('searchEntry', (entryTel) => {
-                                            data.internos.push({
-                                                'sede': entry.object.description,
-                                                'seccion': entryTel.object.givenName,
-                                                'interno': entryTel.object.telephoneNumber,
-                                            });
+
+                                            if (entryTel.object.cn == "sede"){
+                                                webpage = entryTel.object.description
+                                                caracteristica = entryTel.object.telephoneNumber
+                                                modifyInternos = true
+                                            }
+                                            else{
+                                                data.internos.push({
+                                                    'sede': entry.object.description,
+                                                    'seccion': entryTel.object.givenName,
+                                                    'interno': entryTel.object.telephoneNumber,
+                                                    
+                                                });
+                                            }                                            
                                         });
 
                                         resTel.on('end', (result) => {
 
                                             sedesTerminadas += 1;
+                                            
+                                            if (modifyInternos){
+                                                data.internos.forEach(function (element){
+                                                    if (element.sede = entry.object.description){
+                                                        element.webpage = webpage
+                                                        element.caracteristica = caracteristica
+                                                    }
+                                                })
+                                            }    
+                                            modifyInternos = false                                       
 
                                             if (sedes == sedesTerminadas) {
                                                 resolve(data);
