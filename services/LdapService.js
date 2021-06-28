@@ -26,10 +26,6 @@ class LdapService {
             var sedes = 0;
             var sedesTerminadas = 0;
 
-            var modifyInternos = false
-            var webpage
-            var caracteristica
-
             client.bind(this.bindDn, this.passwd, (err) => {
 
                 if (!err) {
@@ -38,11 +34,7 @@ class LdapService {
                         (err, res) => {
 
                             res.on('searchEntry', (entry) => {
-                                sedes += 1;
-
-                                data.sedes.push({
-                                    'nombre': entry.object.description,
-                                });
+                                sedes += 1;                                
 
                                 client.search(entry.object.dn, { filter: '(objectclass=inetOrgPerson)', scope: 'sub' },
                                     (errTel, resTel) => {
@@ -50,33 +42,24 @@ class LdapService {
                                         resTel.on('searchEntry', (entryTel) => {
 
                                             if (entryTel.object.cn == "sede"){
-                                                webpage = entryTel.object.description
-                                                caracteristica = entryTel.object.telephoneNumber
-                                                modifyInternos = true
+                                                data.sedes.push({
+                                                    'nombre': entry.object.description,
+                                                    'webpage': entryTel.object.description,
+                                                    'caracteristica': entryTel.object.telephoneNumber,                                                    
+                                                });
                                             }
                                             else{
                                                 data.internos.push({
                                                     'sede': entry.object.description,
                                                     'seccion': entryTel.object.givenName,
-                                                    'interno': entryTel.object.telephoneNumber,
-                                                    
+                                                    'interno': entryTel.object.telephoneNumber,                                                    
                                                 });
                                             }                                            
                                         });
 
                                         resTel.on('end', (result) => {
 
-                                            sedesTerminadas += 1;
-                                            
-                                            if (modifyInternos){
-                                                data.internos.forEach(function (element){
-                                                    if (element.sede = entry.object.description){
-                                                        element.webpage = webpage
-                                                        element.caracteristica = caracteristica
-                                                    }
-                                                })
-                                            }    
-                                            modifyInternos = false                                       
+                                            sedesTerminadas += 1;                                    
 
                                             if (sedes == sedesTerminadas) {
                                                 resolve(data);

@@ -1,11 +1,30 @@
 <div class="container">
-    <table class="table table-striped" id="myTable">
+    <table class="table">
         <thead>
             <tr>
                 <th>Sede</th>
-                <th>Sitio web</th>                
-                <th>Secci&oacuten</th>
+                <th>Sitio web</th>  
                 <th>Caracterst&iacuteca</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% sedes.forEach(function(element) {%>
+            <tr>
+                <td><%=element.nombre%></td>
+                <td><a href="<%=element.webpage%>"><%=element.webpage%></a></td>
+                <td><%=element.caracteristica%></td>
+            </tr>
+            <%})%>
+        </tbody>
+    </table> 
+</div>
+
+<div class="container">
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th>Sede</th>             
+                <th>Secci&oacuten</th>                
                 <th>Interno</th>
             </tr>
         </thead>
@@ -13,9 +32,7 @@
             <% phoneNumbers.forEach(function(element) {%>
             <tr>
                 <td><%=element.sede%></td>
-                <td><a href="<%=element.webpage%>"><%=element.webpage%></a></td>
                 <td><%=element.seccion%></td>
-                <td><%=element.caracteristica%></td>
                 <td><%=element.interno%></td>
             </tr>
             <%})%>
