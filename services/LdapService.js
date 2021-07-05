@@ -45,7 +45,8 @@ class LdapService {
                                                 data.sedes.push({
                                                     'nombre': entry.object.description,
                                                     'webpage': entryTel.object.description,
-                                                    'caracteristica': entryTel.object.telephoneNumber,                                                    
+                                                    'caracteristica': entryTel.object.telephoneNumber, 
+                                                    'telefono': entryTel.object.homePhone,                                                 
                                                 });
                                             }
                                             else{
@@ -53,7 +54,8 @@ class LdapService {
                                                     data.internos.push({
                                                         'sede': entry.object.description,
                                                         'seccion': entryTel.object.givenName,
-                                                        'interno': entryTel.object.telephoneNumber,                                                    
+                                                        'interno': entryTel.object.telephoneNumber,  
+                                                        'edificio': entryTel.object.destinationIndicator,                                               
                                                     });
                                                 }                                                
                                             }                                            
