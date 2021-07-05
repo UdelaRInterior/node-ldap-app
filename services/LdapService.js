@@ -49,11 +49,13 @@ class LdapService {
                                                 });
                                             }
                                             else{
-                                                data.internos.push({
-                                                    'sede': entry.object.description,
-                                                    'seccion': entryTel.object.givenName,
-                                                    'interno': entryTel.object.telephoneNumber,                                                    
-                                                });
+                                                if (entryTel.object.description != "privado"){
+                                                    data.internos.push({
+                                                        'sede': entry.object.description,
+                                                        'seccion': entryTel.object.givenName,
+                                                        'interno': entryTel.object.telephoneNumber,                                                    
+                                                    });
+                                                }                                                
                                             }                                            
                                         });
 
