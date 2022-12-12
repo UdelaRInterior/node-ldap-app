@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "ejs": "^3.1.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "http-errors": "^1.7.3",
     "ldapjs": "^1.0.0",
     "xmlbuilder": "^15.1.1"
